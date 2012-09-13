@@ -8,7 +8,7 @@
 
 import smtplib
 import sys
-
+import socket
 
 SERVER = 'mail.emailserver.com'
 USERNAME = 'username'
@@ -22,17 +22,17 @@ MDSTAT = '/proc/mdstat'
 
 def run():
     status = open(MDSTAT).read()
-    subject = '%s: RAID Status Change'
+    subject = '%s: RAID Status Change' % (socket.gethostname(), )
 
     # Information provided by mdadm
     event = sys.argv[1]
     device = sys.argv[2]
 
     # Compose message
-    text = "Device: %s\nEvent: %s\n\n%s:\n%s" (device, event, MDSTAT, status)
-    headers = "From: %s\r\n" % (SENDER)
-    headers += "To: %s\r\n" % (RECIPIENTS)
-    headers += "Subject: %s\r\n\r\n" % (subject)
+    text = "Device: %s\nEvent: %s\n\n%s:\n%s" % (device, event, MDSTAT, status)
+    headers = "From: %s\r\n" % (SENDER, )
+    headers += "To: %s\r\n" % (RECIPIENTS, )
+    headers += "Subject: %s\r\n\r\n" % (subject, )
     message = headers + text
 
     # Send message
