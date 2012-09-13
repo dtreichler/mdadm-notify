@@ -1,0 +1,45 @@
+#!/bin/env python
+# Filename: mdadm-notify.py
+# Description: Notification script for mdadm to email outside address
+# Created: Thu Sep 13 07:37:07 2012
+# Created By: dtreichler
+# Modified: Thu Sep 13 07:37:08 2012
+# Modified By: dtreichler
+
+import smtplib
+import sys
+
+
+SERVER = 'mail.emailserver.com'
+USERNAME = 'username'
+PASSWORD = 'password'
+SENDER = 'username@emailserver.com'
+
+RECIPIENTS = ['administrator@emailserver.com']
+
+MDSTAT = '/proc/mdstat'
+
+
+def run():
+    status = open(MDSTAT).read()
+    subject = '%s: RAID Status Change'
+
+    # Information provided by mdadm
+    event = sys.argv[1]
+    device = sys.argv[2]
+
+    # Compose message
+    text = "Device: %s\nEvent: %s\n\n%s:\n%s" (device, event, MDSTAT, status)
+    headers = "From: %s\r\n" % (SENDER)
+    headers += "To: %s\r\n" % (RECIPIENTS)
+    headers += "Subject: %s\r\n\r\n" % (subject)
+    message = headers + text
+
+    # Send message
+    s = smtplib.SMTP(SERVER)
+    s.login(USERNAME, PASSWORD)
+    s.sendmail(SENDER, RECIPIENTS, message)
+    s.quit()
+
+if __name__ == "__main__":
+    run()
