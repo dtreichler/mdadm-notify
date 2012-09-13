@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/env python2
 # Filename: mdadm-notify.py
 # Description: Notification script for mdadm to email outside address
 # Created: Thu Sep 13 07:37:07 2012
