@@ -10,6 +10,7 @@ Configuration
 Edit the mdadm-notify script to set the following variables
 
 * `SERVER`: The SMTP server being used to send email
+* `PORT`: Open port for login on SMTP server, usually 587
 * `USERNAME`: The username used to log into `SERVER`
 * `PASSWORD`: The password for `USERNAME`
 * `SENDER`: The email sender. Usually along the lines of `USERNAME`@`SERVER`

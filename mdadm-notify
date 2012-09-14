@@ -11,6 +11,7 @@ import sys
 import socket
 
 SERVER = 'mail.emailserver.com'
+PORT = 587
 USERNAME = 'username'
 PASSWORD = 'password'
 SENDER = 'username@emailserver.com'
@@ -36,7 +37,7 @@ def run():
     message = headers + text
 
     # Send message
-    s = smtplib.SMTP(SERVER)
+    s = smtplib.SMTP(SERVER, PORT)
     s.login(USERNAME, PASSWORD)
     s.sendmail(SENDER, RECIPIENTS, message)
     s.quit()
