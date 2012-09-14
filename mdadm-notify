@@ -15,6 +15,7 @@ PORT = 587
 USERNAME = 'username'
 PASSWORD = 'password'
 SENDER = 'username@emailserver.com'
+USE_TLS = True
 
 RECIPIENTS = ['administrator@emailserver.com']
 
@@ -38,6 +39,10 @@ def run():
 
     # Send message
     s = smtplib.SMTP(SERVER, PORT)
+    if USE_TLS:
+        s.ehlo()
+        s.starttls()
+        s.ehlo()
     s.login(USERNAME, PASSWORD)
     s.sendmail(SENDER, RECIPIENTS, message)
     s.quit()

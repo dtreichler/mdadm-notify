@@ -9,7 +9,7 @@ from setuptools import setup
 
 setup(
     name = "mdadm-notify",
-    version = "0.1",
+    version = "0.2",
     author = "Derrick Treichler",
     description = ("A simple monitoring script for mdadm that emails outside ",
                    "addresses"),
