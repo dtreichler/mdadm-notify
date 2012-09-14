@@ -2,7 +2,7 @@
 # Filename: setup.py
 # Created: Thu Sep 13 07:46:06 2012
 # Created By: dtreichler
-# Modified: Thu Sep 13 08:42:35 2012
+# Modified: Fri Sep 14 10:15:36 2012
 # Modified By: dtreichler
 
 from setuptools import setup
@@ -22,6 +22,7 @@ setup(
         "Environment :: Console",
         "License :: OSI Approved :: BSD License",
         "Topic :: System :: Monitoring",
+        "Operating System :: POSIX :: Linux",
     ],
 )
 
