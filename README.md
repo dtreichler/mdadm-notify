@@ -18,14 +18,6 @@ Edit the mdadm-notify script to set the following variables
 Optional:
 * `MDSTAT`: The location of `mdadm`'s status file. Should usually be `/proc/mdstat`
 
-As this file contains plain-text passwords, it's recommended that you run
-
-    chmod 700 mdadm-notify
-
-and verify that the permissions look like the following
-
-    -rwx------ 1 dtreichler users 1063 Sep 13 07:44 mdadm-notify
- 
 Installation
 ------------
 
@@ -33,17 +25,29 @@ To install, run
 
     python setup.py install
 
-as root to install mdadm-notify to /usr/bin.
+as root to install mdadm-notify to /usr/bin (or /usr/local/bin, depending on your system).
 
-Edit your `mdadm` configuration file (e.g. `/etc/mdadm.conf`) and change the `PROGRAM` variable, usually at the very end of the file
+As this file contains plain-text passwords, it's recommended that you run
+
+    chmod 700 /usr/bin/mdadm-notify
+
+and verify that the permissions look like the following
+
+    -rwx------ 1 root root 1063 Sep 13 07:44 mdadm-notify
+ 
+Edit your `mdadm` configuration file (e.g. `/etc/mdadm.conf`) and change the `PROGRAM` variable to match the install location, usually at the very end of the file
 
     PROGRAM /usr/bin/mdadm-notify
+
+Older versions of `mdadm` (pre 3.0, I believe) don't seem to have the program option. On Ubuntu/Debian systems, the variable `DAEMON_OPTIONS` is set in `/etc/default/mdadm`. To use `mdadm-notify`, modify that variable to add the `--program` option
+
+    DAEMON_OPTIONS="--syslog --program /usr/local/bin/mdadm-notify"`
 
 Test
 ----
 
 Verify that installation and configuration have worked by running the following
 
-    mdadm --monitor --test --oneshot /dev/mdX
+    mdadm --monitor --test --oneshot /dev/mdX --program /usr/local/bin/mdadm-notify
 
 where X is replaced by an `mdadm` device
